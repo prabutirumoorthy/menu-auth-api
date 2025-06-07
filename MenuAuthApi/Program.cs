@@ -1,15 +1,37 @@
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new() { Title = "Menu API", Version = "v1" });
+    c.AddSecurityDefinition("Bearer", new()
+    {
+        In = ParameterLocation.Header,
+        Description = "Enter 'Bearer' followed by your token",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme { Reference = new OpenApiReference {
+                Type = ReferenceType.SecurityScheme, Id = "Bearer" } },
+            Array.Empty<string>()
+        }
+    });
+});
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
