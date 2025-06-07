@@ -15,15 +15,15 @@ internal static class Extensions
 {
     public static IServiceCollection AddSQLDB(this IServiceCollection services, IConfiguration configuration)
     {
-       // services.AddScoped<ISampleEntityRepository, SampleEntityRepository>();
-      //  services.AddScoped<ISampleEntityReadService, SampleEntityReadService>();
+        services.AddScoped<ISampleEntityRepository, SampleEntityRepository>();
+        services.AddScoped<ISampleEntityReadService, SampleEntityReadService>();
 
-        // var options = configuration.GetOptions<DataBaseOptions>("DataBaseConnectionString");
-        // services.AddDbContext<ReadDbContext>(ctx =>
-        // ctx.UseSqlServer(options.ConnectionString));
+        var options = configuration.GetOptions<DataBaseOptions>("DataBaseConnectionString");
+        services.AddDbContext<ReadDbContext>(ctx =>
+        ctx.UseSqlServer(options.ConnectionString));
 
-        // services.AddDbContext<WriteDbContext>(ctx =>
-        //     ctx.UseSqlServer(options.ConnectionString));
+        services.AddDbContext<WriteDbContext>(ctx =>
+            ctx.UseSqlServer(options.ConnectionString));
 
         return services;
     }

@@ -26,7 +26,7 @@ internal sealed class AppInitializer : IHostedService
                 continue;
             }
             //dbContext.Database.EnsureCreated();
-            await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+         //   await dbContext.Database.EnsureCreatedAsync(cancellationToken);
         }
     }
 

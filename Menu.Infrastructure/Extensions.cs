@@ -12,7 +12,7 @@ public static class Extensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-      //  services.AddSQLDB(configuration);
+        services.AddSQLDB(configuration);
         services.AddQueries();
         services.AddSerilog(configuration);
         //services.AddSingleton<IExternalService, ExternalService>();
